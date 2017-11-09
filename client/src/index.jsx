@@ -16,9 +16,9 @@ class App extends React.Component {
   search (term) {
     console.log(`${term} was searched`);
     $.ajax({
-      headers: {
-        Accept : "text/plain; charset=utf-8"
-      },
+      // headers: {
+      //   Accept : "text/plain; charset=utf-8"
+      // },
       type: 'POST',
       url: '/repos',
       data: {'query': term}
