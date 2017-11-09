@@ -18,6 +18,11 @@ let repoSchema = mongoose.Schema({
 
 let Repo = mongoose.model('Repo', repoSchema);
 
+module.exports.existsInDatabase = (username) => {
+   return Repo.findOne({author: username})
+    .then(results => results);
+}
+
 let createNewEntry = (repo) => {
   let newRepoProperties = {
     author: repo.owner.login,
@@ -31,14 +36,14 @@ let createNewEntry = (repo) => {
   return newRepo.save();
 }
 
-let save = (results) => {
+module.exports.save = (results) => {
   results = JSON.parse(results);
   return Promise.map(results, function(repo) {
     return createNewEntry(repo);
   })
 }
 
-let grabRepos = (cb) => {
+module.exports.grabRepos = (cb) => {
   Repo.find()
     .sort({'forkCount': -1})
     .limit(25)
@@ -54,6 +59,3 @@ let grabRepos = (cb) => {
 //     }
 //   })
 // }
-
-module.exports.save = save;
-module.exports.grabRepos = grabRepos;
