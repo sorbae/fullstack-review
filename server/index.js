@@ -9,14 +9,20 @@ app.use(bodyParser.urlencoded({extended: true}))
 app.use(express.static(__dirname + '/../client/dist'));
 
 app.post('/repos', function (req, res) {
-  let userName = req.body.query;
-  github.getReposByUsername(userName)
-    .then(results => {
-      db.save(results.body)
+  let username = req.body.query;
+
+  db.existsInDatabase(username)
+    .then(userExists => {
+      if (userExists !== null) {
+        console.log('username already exists in database');
+        // update username
+      } else {
+        console.log('logging into database');
+        github.getReposByUsername(username)
+        .then(results => db.save(results.body))
+      }
     })
-    .catch(error => {
-      console.log(error);
-    });
+    .catch(error => console.log(error));
 });
 
 app.get('/repos', function (req, res) {
