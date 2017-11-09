@@ -10,9 +10,10 @@ mongoose.connection.once('open', function() {
 let repoSchema = mongoose.Schema({
   author: String,
   avatar: String,
+  repoName: String,
   description: String,
   repoUrl: String,
-  forks_count: Number
+  forkCount: Number
 });
 
 let Repo = mongoose.model('Repo', repoSchema);
@@ -23,8 +24,8 @@ let createNewEntry = (repo) => {
     avatar: repo.owner.avatar_url,
     repoName: repo.name,
     description: repo.description,
-    url: repo.html_url,
-    forkCount: repo.forks_count
+    repoUrl: repo.html_url,
+    forkCount: repo.forks
   }
   let newRepo = new Repo(newRepoProperties);
   return newRepo.save();
@@ -37,15 +38,22 @@ let save = (results) => {
   })
 }
 
-let grabRepos = () => {
-  return Repo.find(function(err, repos) {
-    if (err) {
-      console.log('Cannot retrive repos from database: ', err);
-    } else {
-      return repos;
-    }
-  })
+let grabRepos = (cb) => {
+  Repo.find()
+    .sort({'forkCount': -1})
+    .limit(25)
+    .exec(cb);
 }
+
+// let grabRepos = () => {
+//   return Repo.find(function(err, repos) {
+//     if (err) {
+//       console.log('Cannot retrive repos from database: ', err);
+//     } else {
+//       return repos;
+//     }
+//   })
+// }
 
 module.exports.save = save;
 module.exports.grabRepos = grabRepos;
