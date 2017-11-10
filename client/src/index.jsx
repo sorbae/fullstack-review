@@ -19,20 +19,15 @@ class App extends React.Component {
 
   getTop25() {
     let context = this;
-    // $.get('/repos')
-    //   .done((results) => {
-    //     context.setState({repos: results});
-    //   })
 
     $.ajax({
       url: '/repos',
       dataType: 'json',
       success: function(results) {
-        console.log('Get request successful: ', results);
         context.setState({repos: results});
       },
       error: function(result, status) {
-        console.log('Get error occured: ', result, status);
+        console.error('Get error occured: ', result, status);
       }
     })
   }
@@ -41,25 +36,15 @@ class App extends React.Component {
     console.log(`${term} was searched`);
     let context = this;
 
-    // $.post('/repos', {'query': term})
-    //   .done(() => {
-    //     setTimeout(() => {
-    //       context.getTop25();
-    //     }, 1500);
-    //   });
-
     $.ajax({
       type: 'POST',
       url: '/repos',
       data: {'query': term},
       success: function(results) {
-        console.log('Post request successful: ', results);
-        setTimeout(() => {
-          context.getTop25();
-        }, 1500);
+        context.getTop25();
       },
       error: function(result, status) {
-        console.log('Post error occured: ', result, status);
+        console.error('Post error occured: ', result, status);
       }
     })
   }

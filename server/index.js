@@ -11,9 +11,11 @@ app.use(express.static(__dirname + '/../client/dist'));
 app.post('/repos', (req, res) => {
   let username = req.body.query;
   github.getReposByUsername(username)
-    .then(results => db.save(results.body))
+    .then(results => {
+      db.save(results.body)
+      res.end();
+    })
     .catch(err => console.log(err))
-  res.end();
 });
 
 app.get('/repos', (req, res) => {
