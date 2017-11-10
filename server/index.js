@@ -1,4 +1,3 @@
-require('dotenv').config()
 const express = require('express');
 const db = require('../database/index.js')
 const github = require('../helpers/github.js')
