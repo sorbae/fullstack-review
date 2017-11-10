@@ -13,15 +13,11 @@ let repoSchema = mongoose.Schema({
   repoName: String,
   description: String,
   repoUrl: String,
-  forkCount: Number
+  forkCount: Number,
+  repoId: {type: Number, unique: true, index: true}
 });
 
 let Repo = mongoose.model('Repo', repoSchema);
-
-module.exports.existsInDatabase = (username) => {
-   return Repo.findOne({author: username})
-    .then(results => results);
-}
 
 let createNewEntry = (repo) => {
   let newRepoProperties = {
@@ -30,7 +26,8 @@ let createNewEntry = (repo) => {
     repoName: repo.name,
     description: repo.description,
     repoUrl: repo.html_url,
-    forkCount: repo.forks
+    forkCount: repo.forks,
+    repoId: repo.id
   }
   let newRepo = new Repo(newRepoProperties);
   return newRepo.save();
@@ -49,13 +46,3 @@ module.exports.grabRepos = (cb) => {
     .limit(25)
     .exec(cb);
 }
-
-// let grabRepos = () => {
-//   return Repo.find(function(err, repos) {
-//     if (err) {
-//       console.log('Cannot retrive repos from database: ', err);
-//     } else {
-//       return repos;
-//     }
-//   })
-// }

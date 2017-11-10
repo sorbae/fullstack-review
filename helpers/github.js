@@ -11,12 +11,8 @@ let getReposByUsername = (username) => {
   };
 
   return new Promise((resolve, reject) => {
-    request.get(options, function(err, result) {
-      if (err) {
-        reject(err)
-      } else {
-        resolve(result);
-      }
+    request.get(options, (err, result) => {
+      err ? reject(err) : resolve(result);
     });
   });
 }

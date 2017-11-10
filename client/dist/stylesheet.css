@@ -1,0 +1,46 @@
+* {
+  box-sizing: border-box;
+  font-family: sans-serif;
+}
+
+body {
+  background: black;
+  color: white;
+  font-size: 10px;
+}
+
+
+.entry {
+  border: 0.5px solid white;
+  border-radius: 5px;
+  padding: 15px 20px;
+  margin: 10px 0;
+  display: flex;
+  justify-content: space-between;
+}
+
+.author {
+  color: white;
+  font-size: 18px;
+  font-weight: bold;
+  text-transform: uppercase;
+}
+
+.repoDetails {
+  width: 400px;
+  text-decoration: none;
+  color: gray;
+}
+
+a {
+  color: beige;
+}
+
+input {
+  border-radius: 2px;
+  background: beige;
+}
+
+img {
+  padding: 0 20px;
+}
