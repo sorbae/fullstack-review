@@ -1,7 +1,8 @@
+require('dotenv').config()
 const express = require('express');
 const db = require('../database/index.js')
 const github = require('../helpers/github.js')
-let app = express();
+const app = express();
 const bodyParser = require('body-parser')
 
 app.use(bodyParser.json())
@@ -24,6 +25,6 @@ app.get('/repos', (req, res) => {
   });
 });
 
-let port = 1128;
+let port = process.env.PORT || 1128;
 
 app.listen(port, () => console.log(`listening on port ${port}`));
