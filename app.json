@@ -1,0 +1,5 @@
+{
+  "name": "Grab Github Repos",
+  "description": "Fetch top 25 github repos in database",
+  "repository": "https://github.com/sorbae/hrsf85-fullstack-review"
+}
