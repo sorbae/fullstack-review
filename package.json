@@ -28,7 +28,11 @@
     "mongoose": "^4.13.0",
     "react": "^15.4.2",
     "react-dom": "^15.4.2",
-    "request": "^2.81.0"
+    "request": "^2.81.0",
+    "css-loader": "^0.28.7",
+    "dotenv": "^4.0.0",
+    "style-loader": "^0.19.0",
+    "webpack": "^2.2.1"
   },
   "engines": {
     "node": "8.3.0"
